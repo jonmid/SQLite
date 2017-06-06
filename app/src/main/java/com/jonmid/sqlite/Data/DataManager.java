@@ -56,8 +56,8 @@ public class DataManager {
             while (cursor.moveToNext()){
                 ListPost listPost = new ListPost();
                 listPost.setId(cursor.getLong(cursor.getColumnIndex("id")));
-                listPost.setName_user(cursor.getString(cursor.getColumnIndex("name")));
-                listPost.setTitle_post(cursor.getString(cursor.getColumnIndex("email")));
+                listPost.setName_user(cursor.getString(cursor.getColumnIndex("email")));
+                listPost.setTitle_post(cursor.getString(cursor.getColumnIndex("title")));
 
                 posts.add(listPost);
             }
@@ -66,9 +66,7 @@ public class DataManager {
     }
 
     public List<ListPost> findAll(){
-        String MY_QUERY = "select u.id,u.name,u.email from users u inner join userpost up on u.id = up.id_user";
-        // String MY_QUERY = "select u.id,u.name,u.email from users u inner join userpost up inner join posts p on up.id_post = p.id on u.id = up.id_user where u.id = 1";
-
+        String MY_QUERY = "select * from (users u inner join (userpost up inner join posts p on up.id_post = p.id) on u.id = up.id_user)";
         Cursor cursor = database.rawQuery(MY_QUERY, null);
         List<ListPost> misPost = cursorToList(cursor);
         return misPost;

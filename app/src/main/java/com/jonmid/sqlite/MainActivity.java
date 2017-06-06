@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.jonmid.sqlite.Adapters.AdapterListPost;
-import com.jonmid.sqlite.Adapters.AdapterUser;
 import com.jonmid.sqlite.Data.DataManager;
 import com.jonmid.sqlite.Models.ListPost;
 import com.jonmid.sqlite.Models.Post;
