@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     ListView lista;
     DataManager dataManager;
     List<ListPost> userList;
-    //AdapterUser adapterUser;
     AdapterListPost adapterListPost;
 
     @Override

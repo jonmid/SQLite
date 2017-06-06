@@ -42,7 +42,9 @@ public class HelperDataBase extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_USERPOST + " (" +
                     COLUMN_UP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_UP_IDUSER + " INTEGER, " +
-                    COLUMN_UP_IDPOST + " INTEGER" +
+                    COLUMN_UP_IDPOST + " INTEGER, " +
+                    "FOREIGN KEY("+COLUMN_UP_IDUSER+") REFERENCES users(id), "+
+                    "FOREIGN KEY("+COLUMN_UP_IDPOST+") REFERENCES posts(id)"+
                     ")";
 
 

@@ -32,28 +32,22 @@ public class DataManager {
     }
 
     public void createUserPost(User user, Post post){
+
         ContentValues valuesUser = new ContentValues();
         valuesUser.put(HelperDataBase.COLUMN_U_NAME, user.getName());
         valuesUser.put(HelperDataBase.COLUMN_U_EMAIL, user.getEmail());
+        long insertIdUser = database.insert(HelperDataBase.TABLE_USERS, null, valuesUser);
 
         ContentValues valuesPost = new ContentValues();
         valuesPost.put(HelperDataBase.COLUMN_P_TITLE, post.getTitle());
         valuesPost.put(HelperDataBase.COLUMN_P_STATUS, post.isStatus());
-
-        long insertIdUser = database.insert(HelperDataBase.TABLE_USERS, null, valuesUser);
         long insertIdPost = database.insert(HelperDataBase.TABLE_POSTS, null, valuesPost);
-
-        user.setId(insertIdUser);
-        post.setId(insertIdPost);
-
 
         ContentValues valuesUserPost = new ContentValues();
         valuesUserPost.put(HelperDataBase.COLUMN_UP_IDUSER, insertIdUser);
         valuesUserPost.put(HelperDataBase.COLUMN_UP_IDPOST, insertIdPost);
-
         long insertIdUserPost = database.insert(HelperDataBase.TABLE_USERPOST, null, valuesUserPost);
 
-        //return user;
     }
 
     public List<ListPost> cursorToList(Cursor cursor){
@@ -72,7 +66,10 @@ public class DataManager {
     }
 
     public List<ListPost> findAll(){
-        Cursor cursor = database.rawQuery("select id,name,email from users", null);
+        String MY_QUERY = "select u.id,u.name,u.email from users u inner join userpost up on u.id = up.id_user";
+        // String MY_QUERY = "select u.id,u.name,u.email from users u inner join userpost up inner join posts p on up.id_post = p.id on u.id = up.id_user where u.id = 1";
+
+        Cursor cursor = database.rawQuery(MY_QUERY, null);
         List<ListPost> misPost = cursorToList(cursor);
         return misPost;
     }
